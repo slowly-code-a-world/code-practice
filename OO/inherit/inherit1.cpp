@@ -27,6 +27,7 @@ public:
 
 class P2: public Base {
 public:
+	int b;
 	P2() {
 		cout << "construct P2" << endl;
 	}
@@ -50,5 +51,7 @@ int main(void) {
 	Child c;
 	c.P1::geta(); 
 
+	Base *b = new P2();
+	cout << b->b << endl;
 	return 0;	
 }
