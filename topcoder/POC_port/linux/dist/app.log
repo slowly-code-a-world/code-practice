@@ -1,0 +1,6 @@
+ERROR 2014-08-07 20:37:45,263      0 [main] { lockscreen.poc.MainFrame.main(MainFrame.java:715)}
+	Error when rendering main frame
+javax.swing.UnsupportedLookAndFeelException: [The Microsoft Windows Look and Feel - com.sun.java.swing.plaf.windows.WindowsLookAndFeel] not supported on this platform
+	at javax.swing.UIManager.setLookAndFeel(UIManager.java:523)
+	at javax.swing.UIManager.setLookAndFeel(UIManager.java:580)
+	at lockscreen.poc.MainFrame.main(MainFrame.java:700)
