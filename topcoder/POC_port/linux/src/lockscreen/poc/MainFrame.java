@@ -697,7 +697,10 @@ public class MainFrame extends JFrame {
      */
     public static void main(String[] args) {
         try {
-            UIManager.setLookAndFeel(SWING_WINDOWS_LOOK_AND_FEEL);
+	 	
+            //UIManager.setLookAndFeel(SWING_WINDOWS_LOOK_AND_FEEL);
+	    System.loadLibrary("bluecove");	
+	    UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());	
             final MainFrame frame = new MainFrame();
             if (frame.existBluetooth()) {
                 EventQueue.invokeLater(new Runnable() {
@@ -711,6 +714,7 @@ public class MainFrame extends JFrame {
                     }
                 });
             }
+	    	
         } catch (Exception e) {
             LOG.error("Error when rendering main frame", e);
         }

@@ -1,0 +1,21 @@
+ERROR 2014-08-08 21:02:37,692      0 [main] { lockscreen.poc.MainFrame.loadProperties(MainFrame.java:456)}
+	Error happened when reading properties file
+java.io.FileNotFoundException: app.properties (No such file or directory)
+	at java.io.FileInputStream.open(Native Method)
+	at java.io.FileInputStream.<init>(FileInputStream.java:146)
+	at java.io.FileInputStream.<init>(FileInputStream.java:101)
+	at lockscreen.poc.MainFrame.loadProperties(MainFrame.java:449)
+	at lockscreen.poc.MainFrame.<init>(MainFrame.java:297)
+	at lockscreen.poc.MainFrame.main(MainFrame.java:703)
+ERROR 2014-08-08 21:02:37,696      4 [main] { lockscreen.poc.MainFrame.loadProperties(MainFrame.java:472)}
+	can not find valid pin from properties file!
+ERROR 2014-08-08 21:02:37,697      5 [main] { lockscreen.poc.MainFrame.loadProperties(MainFrame.java:476)}
+	can not find valid check devices interval from properties file!
+ERROR 2014-08-08 21:02:37,697      5 [main] { lockscreen.poc.MainFrame.loadProperties(MainFrame.java:480)}
+	can not find valid failed times from properties file!
+DEBUG 2014-08-08 21:02:37,699      7 [main] { lockscreen.poc.MainFrame.loadProperties(MainFrame.java:482)}
+	pin=111111
+DEBUG 2014-08-08 21:02:37,699      7 [main] { lockscreen.poc.MainFrame.loadProperties(MainFrame.java:483)}
+	checkDevicesInterval=30000
+DEBUG 2014-08-08 21:02:37,699      7 [main] { lockscreen.poc.MainFrame.loadProperties(MainFrame.java:484)}
+	failedTimes=2

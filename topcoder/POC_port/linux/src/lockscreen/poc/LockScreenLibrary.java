@@ -7,6 +7,8 @@ import com.sun.jna.Library;
 
 import com.sun.jna.Native;
 
+import com.sun.jna.Platform;
+
 /**
  * Represents Lock Screen library,it will use JNA to load native lock screen
  * function.
@@ -27,7 +29,7 @@ public interface LockScreenLibrary extends Library {
     /**
      * Load native user32 library.
      */
-    Native.loadLibrary("user32", LockScreenLibrary.class);
+    Native.loadLibrary((Platform.isWindows()? "user32" : "X11"), LockScreenLibrary.class);
 
     /**
      * Native lock screen function.
