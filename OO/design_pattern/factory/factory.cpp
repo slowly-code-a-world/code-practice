@@ -1,92 +1,78 @@
 #include <iostream>
+
 using namespace std;
 
-class Operation {
-private:
-	double _numberA;
-	double _numberB;
-	
+class Operator {
+protected:
+	int numA;
+	int numB;
 public:
-	double getNumberA(void) {
-		return _numberA;
-	}
-	void setNumberA(double A) {
-		_numberA = A;
-	}
-	double getNumberB(void) {
-		return _numberB;
-	}
-	void setNumberB(double B) {
-		_numberB = B;
-	}
-	virtual double GetResult() {
-		return 0;
+	Operator(int A, int B) {numA = A; numB = B;}
+	virtual int getResult() = 0;
+};
+
+class AddOperator : public Operator {
+public:
+        AddOperator(int A, int B): Operator(A, B) {}
+
+	int getResult() {
+		return numA + numB;
 	}
 };
 
-class OperationAdd: public Operation {
-public:
-	double GetResult() {
-		double result = 0;
-		result = getNumberA() + getNumberB();
-		return result;
+class SubOperator : public Operator {
+public:	
+        SubOperator(int A, int B): Operator(A, B) {}
+
+	int getResult() {
+		return numA - numB;
 	}
 };
 
-class OperationSub: public Operation {
+class Factory {
 public:
-	double GetResult() {
-		double result = 0;
-		result = getNumberA() - getNumberB();
-		return result;
-	}
+	virtual Operator* createOp(int A, int B) = 0;
 };
 
-class OperationMul: public Operation {
+class AddFactory : public Factory {
 public:
-	double GetResult() {	
-		double result = 0;
-		result = getNumberA() * getNumberB();
-		return result;
-	}
+	Operator* createOp(int A, int B) {
+		return new AddOperator(A, B);
+	} 
 };
 
-class OperationDiv: public Operation {
+class SubFactory : public Factory {
 public:
-	double GetResult() {
-		double result = 0;
-		if (0 == getNumberB())
-			cout << "divisor cannot be zero" << endl;
-		result = getNumberA() / getNumberB();
-		return result;
-	}
-};
-
-class OperationFactory {
-public:
-	static Operation* createOperate(string operate) {
-
-		if (0 == operate.compare("+")) 
-			return new OperationAdd();
-		else if (0 == operate.compare("-"))
-			return new OperationSub();
-		else if (0 == operate.compare("*"))
-			return new OperationMul();
-		else if (0 == operate.compare("/"))
-			return new OperationDiv();
-		else return NULL;
-	}
+	Operator* createOp(int A, int B) {
+		return new SubOperator(A, B);
+	}	
 };
 
 int main(void) {
 
-	Operation* oper;
-	oper = OperationFactory::createOperate("/");
-	oper->setNumberA(1);
-	oper->setNumberB(2);
-	double result = oper->GetResult();
+	int num1, num2;
+	char c;
+	
+	cout << "input two numbers" << endl;
+	cin >> num1 >> num2;
 
-	cout << result << endl;
+	cout << "input operator" << endl;
+	cin >> c;
+	
+	Factory *f = NULL;
+	switch (c) {
+		case '+':
+			f = new AddFactory();
+			break;
+		case '-':
+			f = new SubFactory();
+			break;
+		default:
+			cout << "wrong" << endl;
+			return 0;
+	}			
+	Operator *op = f->createOp(num1, num2);
+	cout << op->getResult() << endl;
 
 	return 0;
 }
