@@ -376,6 +376,7 @@ public class MainFrame extends JFrame {
                         pairButton.setEnabled(false);
                         boolean paired = RemoteDeviceHelper.authenticate(
                                 remoteDevice, pin);
+		
                         StringBuilder sb = new StringBuilder();
                         if (paired) {
                             sb.append(PAIRINGL_SUCCESSFUL_WITH_DEVICE_MESSAGE);
@@ -698,8 +699,6 @@ public class MainFrame extends JFrame {
     public static void main(String[] args) {
         try {
 	 	
-            //UIManager.setLookAndFeel(SWING_WINDOWS_LOOK_AND_FEEL);
-	    System.loadLibrary("bluecove");	
 	    UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());	
             final MainFrame frame = new MainFrame();
             if (frame.existBluetooth()) {
