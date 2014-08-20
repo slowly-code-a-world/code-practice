@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<project name="Lock Screen BlueTooth Java Desktop PoC" default="jar" basedir=".">
+
+    <property file="${basedir}/build.properties" />
+
+    <property name="javac.encoding" value="UTF-8" />
+    <property name="libdir" value="lib" />
+
+    <property name="debug" value="off" />
+    <property name="verbose" value="no" />
+
+    <property name="srcdir" value="src" />
+    <property name="docsdir" value="docs" />
+    <property name="configdir" value="conf" />
+    <property name="javamain" value="${srcdir}" />
+
+    <property name="builddir" value="build" />
+    <property name="build_classdir" value="${builddir}/classes" />
+    <property name="distdir" value="dist" />
+
+    <path id="buildlibs">
+        <fileset dir="${libdir}">
+            <include name="**/*.jar" />
+        </fileset>
+    </path>
+
+    <target name="clean">
+        <delete dir="${builddir}" />
+        <delete dir="${distdir}" />
+        <delete file="${configdir}/app.properties" />
+    </target>
+
+    <target name="compile" depends="clean">
+        <mkdir dir="${build_classdir}" />
+        <javac srcdir="${javamain}" destdir="${build_classdir}" debug="true" verbose="${verbose}" includeAntRuntime="no" encoding="${javac.encoding}">
+            <classpath refid="buildlibs" />
+        </javac>
+        <copy todir="${build_classdir}">
+            <fileset dir="${configdir}">
+                <include name="log4j.xml" />
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="jar" depends="compile">
+        <mkdir dir="${distdir}" />
+        <jar jarfile="${distdir}/${jar.name}">
+            <fileset dir="${build_classdir}" />
+            <zipgroupfileset dir="${libdir}" includes="*.jar" />
+            <manifest>
+                <attribute name="Main-Class" value="${mainClass}" />
+            </manifest>
+        </jar>
+        <copy file="${configdir}/app-template.properties" tofile="${distdir}/app.properties" filtering="true" >
+            <filterset filtersfile="build.properties" />
+        </copy>
+    </target>
+
+    <target name="run" depends="jar">
+        <java fork="true" jar="${distdir}/${jar.name}" dir="${distdir}" />
+    </target>
+</project>
