@@ -1,0 +1,154 @@
+Problem Statement
+    	
+
+Prizes
+
+The best 5 performers of this contest (according to system test results) will receive the following prizes:
+
+    place: $5000
+    place: $2000
+    place: $1500
+    place: $1000
+    place: $500
+
+ 
+
+Background
+
+OCR of images captured with mobile phone cameras presents a number of algorithmic challenges not encountered with conventionally scanned documents. One of these is that it is very difficult to take a picture with no perspective distortion or rotation, to which OCR algorithms are typically extremely sensitive. It is therefore necessary to carry out a pre-processing step in which any perspective distortion and rotation is removed. The current IDOL OnDemand implementation of OCR relies primarily on finding the border of the document in order to compute the perspective transform. This requires that the border is in view and clearly contrasted against the background. In practice this has been found to be difficult to achieve. This challenge is to implement an algorithm to compute the transform from the text alone, without the need for a border.
+
+ 
+
+Overview
+
+You will need to write an algorithm to compute the homography mapping from a supplied image onto a deskewed image, where the supplied image will contain only text and the deskewed image should be free from perspective distortion and rotation. This will be tested against a set of images containing text fragments of different sizes, ranging from whole page to a few words, in different fonts and sizes. The winner will be the entry with the best IDOL OnDemand OCR accuracy achieved on the deskewed images. The scoring section and visualizer tool provide more detail about the scoring.
+
+You can test your algorithm locally with a tool that can be downloaded here. You need to sign up for IDOL OnDemand and get an API Key, visit idolondemand.topcoder.com to learn how to get your free API Key.
+
+ 
+
+Implementation and Data
+
+Your task is to implement a deskewing method, whose signatures are detailed in the Definition section below.
+
+int[] imageData contains the RGB values of all pixels in the row-first order. The size of the photo is defined by numRows and numCols. The length of imageData equals to 3 * numRows * numCols. Let y be the row and x be the column, its Red value is stored in imageData[(y * numCols + x)*3 + 0]. Its green value is stored in imageData[(y * numCols + x)*3 + 1]. And its blue value is stored in imageData[(y * numCols + x)*3 + 2]. All RGB values are integers and lie in [0, 255].
+
+The deskewed method should return a new image whose size is the same as the original one. The format of the returned image is also a int[] of RGB values, the same as the input.
+
+ 
+
+Testing and scoring
+
+There are 10 examples, 30 provisional tests, and at least 200 system tests. Please note that the example data provided contains 100 example test cases, when you perform an example submission, only the first 10 example test cases will be executed. You can test with all 100 example test cases locally.
+
+For each image, we have its ground truth text. The deskewed image is a homography mapping from the supplied image onto the deskewed image. The scoring algorithm will first run HP IDOL OnDemand OCR for the deskewed image. After that, we count the number of extracted words of 3+ characters in the output that are also found in the ground truth text. Scoring is calculated based on precision and recall for each test case as follows:
+
+    Let the True Positive (TP) value be the number of matching words that are recognized in the deskewed image and in the ground truth text.
+
+    Let the False Positive (FP) value be the number of words that are not recognized in the deskewed image, but they are in the ground truth text.
+
+    Let the False Negative (FN) value be the number of words that are recognized in the deskewed image, but they are not in the ground truth text.
+
+Your score for a single test case will be 1000000 * 2 * TP / ( 2 * TP + FP + FN). You can see these scores for example test cases when you make example test submissions. If your solution fails to produce a proper return value, your score for this test case will be 0.
+
+The overall score on a set of test cases is the arithmetic average of scores on single test cases from the set. The match standings displays overall scores on provisional tests for all competitors who have made at least 1 full test submission. The winners are competitors with the highest overall scores on system tests.
+
+ 
+
+An offline tester/visualizer tool is available.
+
+ 
+
+Special rules and conditions
+
+    We can not guarantee the availability of the IDOL OnDemand service at all times, be aware that intermittent OCR failures may occur. We will ensure that all the system tests have been successfully executed before announcing the winners.
+    The allowed programming languages are C++, Java, C#, Python and VB.
+    You can include open source code in your submission. Open Source libraries under the BSD, or GPL or GPL2 license will be accepted. Other open source licenses could be accepted too. Just be sure to ask us.
+    In order to receive the prize money, you will need to fully document your code and explain your algorithm. If any parameters were obtained from the training data set, you will also need to provide the program used to generate these parameters. There is no restriction on the programming language used to generate these training parameters. Note that all this documentation should not be submitted anywhere during the coding phase. Instead, if you win a prize, a TopCoder representative will contact you directly in order to collect this data.
+    You may use any external (outside of this competition) source of data to train your solution.
+
+ 
+Definition
+    	
+Class:	OCROptimization
+Method:	deskew
+Parameters:	int[], int, int
+Returns:	int[]
+Method signature:	int[] deskew(int[] imageData, int numRows, int numCols)
+(be sure your method is public)
+    
+ 
+Notes
+-	There is no explicit code size limit. The implicit source code size limit is around 1 MB (it is not advisable to submit codes of size close to that or larger).
+-	The compilation time limit is 60 seconds. You can find information about compilers that we use, compilation options and processing server specifications here. Note that this problem uses different compilation options than the default ones specified at this page.
+ 
+Examples
+0)	
+    	
+
+Seed: 1
+ImageFile = 001CA_ACFBrochure.JPG
+TextFile = 001OR_ACFBrochure.txt
+
+1)	
+    	
+
+Seed: 2
+ImageFile = 001CB_ACFBrochure.JPG
+TextFile = 001OR_ACFBrochure.txt
+
+2)	
+    	
+
+Seed: 3
+ImageFile = 001CC_ACFBrochure.JPG
+TextFile = 001OR_ACFBrochure.txt
+
+3)	
+    	
+
+Seed: 4
+ImageFile = 001CD_ACFBrochure.JPG
+TextFile = 001OR_ACFBrochure.txt
+
+4)	
+    	
+
+Seed: 5
+ImageFile = 001CE_ACFBrochure.JPG
+TextFile = 001OR_ACFBrochure.txt
+
+5)	
+    	
+
+Seed: 6
+ImageFile = 001GA_ACFBrochure.jpg
+TextFile = 001OR_ACFBrochure.txt
+
+6)	
+    	
+
+Seed: 7
+ImageFile = 001GB_ACFBrochure.jpg
+TextFile = 001OR_ACFBrochure.txt
+
+7)	
+    	
+
+Seed: 8
+ImageFile = 001GC_ACFBrochure.jpg
+TextFile = 001OR_ACFBrochure.txt
+
+8)	
+    	
+
+Seed: 9
+ImageFile = 001GD_ACFBrochure.jpg
+TextFile = 001OR_ACFBrochure.txt
+
+9)	
+    	
+
+Seed: 10
+ImageFile = 001GE_ACFBrochure.jpg
+TextFile = 001OR_ACFBrochure.txt
