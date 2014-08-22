@@ -11,6 +11,11 @@ output: C
 */
 
 #include <iostream>
+#include <stdlib.h>
+#include <tr1/unordered_map>
+
+using namespace std;
+using namespace std::tr1;
 
 struct node {
 	int data;
@@ -37,6 +42,7 @@ public:
 				head = p;
 				if (9 == i) {
 					int loc = rand() % 10;
+					cout << loc << endl;
 					p = head;
 					for (int i = 0; i < loc; i++) 
 						p = p->next;
