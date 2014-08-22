@@ -11,16 +11,20 @@ struct node {
 class linkedlist {
 private:
 	struct node *head;
+	struct node *tail;
 public:
-	linkedlist() { head = NULL; }
+	linkedlist() { head = tail = NULL; }
 
 	struct node* get_head (void) { return head; }
+	struct node* get_tail (void) { return tail; }
+	void set_head(struct node *p) { head = p; }
+	void set_tail(struct node *p) { tail = p; }			
 
 	void remove_head(void) {
 		if (NULL == head) return;
 		if (NULL == head->next) {
 			delete head;
-			head = NULL;
+			head = tail = NULL;
 		}
 		struct node *death = head;
 		head = head->next;
@@ -41,11 +45,13 @@ public:
 		for (int i = 0; i < 10; i++) {
 			struct node *p = new node;
 			p->data = rand() % 10;
-			if (NULL == head) 
+			if (NULL == head) {
 				p->next = NULL;
-			else 
+				head = tail = p;
+			} else {
 				p->next = head;
-			head = p;
+				head = p;
+			}
 		}
 	}
 };
