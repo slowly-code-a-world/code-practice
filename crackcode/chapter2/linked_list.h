@@ -41,7 +41,7 @@ public:
 	}	
 
 	void generate_list(void) {
-		srand(time(NULL));
+	
 		for (int i = 0; i < 10; i++) {
 			struct node *p = new node;
 			p->data = rand() % 10;
