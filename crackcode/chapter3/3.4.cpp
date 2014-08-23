@@ -10,4 +10,27 @@ have the following constraints:
 Write a program to move the disks from the first rod to the last using Stacks.
 */
 
+#include <iostream>
 
+class Solution {
+public:
+	void move(int n, char start, char help, char dest) {
+		if (1 == n) {
+			std::cout << "move disk " << n << " from " << start << " to " << dest << std::endl;
+			return;
+		}
+
+		move(n-1, start, dest, help);
+		std::cout << "move disk " << n << " from " << start << " to " << dest << std::endl;
+		move(n-1, help, start, dest);
+		
+	}		
+};
+
+int main(void) {
+
+	Solution S;
+	S.move(3, 'A', 'B', 'C');
+
+	return 0;
+}
