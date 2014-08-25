@@ -10,39 +10,46 @@ private:
 	vector<struct node*> list;
 public:
 	void create(struct node* root) {
-		stack<struct node*> s;
-		s.push(root);
+		vector <struct node*> s;
+		s.push_back(root);
 		struct node* end, *start;
 		struct node* head, *tail;
 		start = end = root;
 		while (0 == s.empty()) {
-			struct node* tmp = s.top();
-			if (tmp == start) {
-				head = tail = tmp;
-				tail->next = NULL;
-				start = NULL;
-				if (NULL != tmp->left) {
-					s.push(tmp->left);
-					if (NULL == start)
-						start = tmp->left;
-				}
-				if (NULL != tmp->right) {
-					s.push(tmp->right);
-					if (NULL == start) 
-						start = tmp->left;
-				}
-			} 
-			
-			if (tmp == end) {
-				s.push(head);
-				head = tail = NULL;
-			}
-			else {
-				tail->next = tmp;
-				tail = tmp;
-			}
-
+			struct node* tmp = s[0];
+			if (tmp == start || tmp == end) {
 						
+				if (NULL != tmp->left) 
+					s.push_back(tmp->left);
+					
+				if (NULL != tmp->right) 
+					s.push_back(tmp->right);	
+
+				if (tmp == start) {
+					head = tail = tmp;
+					tail->next = NULL;
+					s.erase(s.begin());
+				} else {
+					if (1 == s.size()) 
+						start = end = NULL;
+					else {
+						start = s[1];
+						end = s[s.size()-1];
+					}
+					tail->next = s.begin();
+					tail = tail->next;
+					list.push_back(head);			
+					s.erase(s.begin());
+				}
+			} else {
+				if (NULL != tmp->left)
+					s.push_back(tmp->left);
+				if (NULL != tmp->right)
+					s.push_back(tmp->right);
+				tail->next = s.begin();
+				tail = tail->next;
+				s.erase(s.begin());	
+			}		
 		}
 	} 
 };
