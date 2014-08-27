@@ -37,5 +37,18 @@ public:
 			}
 			size = size - count;
 		}
+	}
+
+	void sort_v2 {
+		while (0 == Sa.empty()) {
+			int tmp = Sa.top();
+			Sa.pop();
+			while (0 == Sb.empty() && Sb.top() > tmp) {
+				int a = Sb.top();
+				Sb.pop();
+				Sa.push(a);
+			}
+			Sb.push(tmp);
+		}
 	}	
 }

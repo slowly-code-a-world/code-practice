@@ -28,6 +28,16 @@ public:
 			delete a;
 		}
 	}
+	
+	void remove_node(struct node* a) {
+		if (NULL == a) return;
+		if (NULL == a->next) {
+			delete a;
+			return;
+		}
+		a->data = a->next->data;
+		a->next = a->next->next;
+	}	
 
 	void generate_list(void) {
 		l.generate_list();

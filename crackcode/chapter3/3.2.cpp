@@ -20,9 +20,8 @@ public:
 		}
 		S.push_back(element);
 		int tmp = smin[smin.size()-1];
-		if (element < tmp) 
+		if (element <= tmp) 
 			Smin.push_back(element);
-		else Smin.push_back(tmp);
 	}
 
 	int pop(void) {
@@ -34,7 +33,8 @@ public:
 
 		int ret = s[s.size()-1];
 		s.pop_back();
-		smin.pop_back();
+		if (ret == smin[smin.size()-1])
+			smin.pop_back();
 		
 		return ret;
 	}

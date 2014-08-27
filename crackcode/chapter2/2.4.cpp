@@ -43,6 +43,22 @@ public:
 		print_a_list(sum_lists());
 	}
 
+	struct node* sum_lists(struct node* l1, struct node* l2, int carry) {
+		if (NULL == l1 && NULL == l2 && 0 == carry) return NULL;
+
+		struct node* result = new node;
+		result->value = carry;
+		if (NULL != l1) 
+			result->value += l1->data;
+		if (NULL != l2)	
+			result->value += l2->data;
+		bool have_carry = false;
+		if (result->value >= 10)
+			have_carry = true;
+		result->value = result->value % 10;
+		result->next = sum_lists((NULL == l1)? NULL : l1->next, (NULL == l2)? NULL : l2->next, have_carry ? 1 : 0);
+		
+	}
 	struct node* sum_lists(void) {
 
 		if (NULL == l1.get_head()) return l2.get_head();

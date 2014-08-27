@@ -31,6 +31,12 @@ public:
 		int ret = Sb.top();
 		Sb.pop();
 
+		while (0 == Sb.empty()) {
+			int tmp = Sa.top();
+			Sa.push(tmp);
+			S.pop();
+		}
+
 		return ret;	
 	}		
 };

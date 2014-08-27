@@ -73,6 +73,26 @@ public:
 			p = p->next;
 		}
 	}
+
+	struct node* find_v2(void) {
+		struct node* p1, p2;
+		if (NULL == head) return NULL;
+		p1 = p2 = head;
+		while (NULL != p2->next && p1 != p2) {
+			p1 = p1->next;
+			p2 = p2->next->next;
+		}
+		
+		if (NULL == p2->next) return NULL;
+
+		p1 = head;
+		while (p1 != p2) {
+			p1 = p1->next;
+			p2 = p2->next;
+		} 
+
+		return p1;
+	}
 };
 
 int main(void) {

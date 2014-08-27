@@ -22,6 +22,33 @@ public:
 		}
 		return true;
 	}
+		
+	/*char types cannot be larger than 32*/
+	bool isunique_v2(string s) {
+		int value = 0;
+		for (int i = 0; i < s.size(); i++) {
+			if (value & (1 << (s[i]-'a')) > 0) return false;
+			value |= (1 << (s[i] - 'a'));
+		}
+	}
+
+	bool isunique_v3(string s) {
+		for (int i = 1; i < s.size(); i++) {
+			for (int j = 0; j < i; j++) {
+				if (s[i] == s[j]) 
+					return false;
+			}
+		}
+		return true;	
+	}		
+
+	bool isunique_v4(string s) {
+		sort(s.begin(), s.end());
+		for (int i = 1; i < s.size(); i++) {
+			if (s[i] == s[i-1]) return false;
+		}
+		return true;
+	}	
 };
 
 int main(void) {
