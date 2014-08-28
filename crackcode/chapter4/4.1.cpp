@@ -11,9 +11,6 @@ public:
 
 	int min_height(struct node* root) {
 		if (NULL == root) return 0;
-		if (NULL == root->left && NULL == root->right) return 1;
-		if (NULL == root->left) return 1 + min_height(root->right);
-		if (NULL == root->right) return 1 + min_height(root->left);
 		int left = min_height(root->left);
 		int right = min_height(root->right);
 		
@@ -22,9 +19,6 @@ public:
 
 	int max_height(struct node* root) {
 		if (NULL == root) return 0;
-		if (NULL == root->left && NULL == root->right) return 1;
-		if (NULL == root->left) return 1 + max_height(root->right);
-		if (NULL == root->right) return 1 + max_height(root->left);
 		int left = max_height(root->left);
 		int right = max_height(root->right);
 

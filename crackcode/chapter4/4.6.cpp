@@ -43,4 +43,19 @@ public:
 				return solution1[i-1];
 		}
 	}
+
+	struct node* ancesor_v2(struct node* root, struct node* pa, struct node* pb) {
+		if (NULL == root) return NULL;
+		if (isChild(root->left, pa) && isChild(root->left, pb))
+			return ancesor_v2(root->left, pa, pb);
+		if (isChild(root->right, pa) && isChild(root->right, pb))
+			return ancesor_v2(root->right, pa, pb);
+		return root;
+	}	
+
+	bool isChild(struct node* root, struct node* p) {
+		if (NULL == root) return false;
+		if (root == p) return true;
+		return isChild(root->left, p) || isChild(root->right, p);
+	}
 };

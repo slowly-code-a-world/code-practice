@@ -8,6 +8,8 @@
 class Solution {
 public:
 	struct node* find_next(struct node* p) {
+		if (NULL == p) return NULL;
+
 		if (NULL != p->right) {
 			struct node *tmp = p->right;
 			if (NULL == tmp->left)
