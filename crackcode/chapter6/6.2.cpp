@@ -5,4 +5,5 @@
  answer (by providing an example or showing why it's impossible).
 */
 
+// impossible
 

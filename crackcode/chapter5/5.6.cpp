@@ -27,4 +27,8 @@ public:
 
 		return orig;
 	}
+
+	int swap_v2 (int target) {
+		return (((target & 0xaaaaaaaa) >> 1) | ((target & 0x55555555) << 1));
+	}
 };

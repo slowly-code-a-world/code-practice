@@ -18,5 +18,23 @@ public:
 			if ((C & (1 << i)) > 0) cnt ++;
 
 		return cnt;
-	}	
+	}
+		
+	int bits_v2(int A, int B) {
+		int cnt = 0;
+		for (int C = A^B; C!=0; C = C >> 1) {
+			cnt += C & 1;
+		}
+
+		return cnt;
+	}		
+
+	int bits_v3(int A, int B) {
+		int cnt = 0;
+		for (int C = A^B; C!=0; C = C & (C-1)) {
+			cnt++;
+		}
+
+		return cnt;
+	}
 };

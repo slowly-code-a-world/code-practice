@@ -37,18 +37,17 @@ public:
 		int pos1 = x1/8; int left1 = x1%8;
 		int pos2 = x2/8; int left2 = x2%8;
 		if (pos1 != pos2) {
-			for (int i = pos1+1; i<pos2; i++) {
-				for (int j = 0; j < 8; j++)
-					screen[y*width/8 + i] = 255;
-			}
-		}
+			for (int i = pos1+1; i<pos2; i++) 
+				screen[y*width/8 + i] = 0xFF;
+		
+			for (int i = left1; i<8; i++)
+				screen[y*width/8 + pos1] = screen[y*width/8 + pos1] | (1 << (7 - i));
 
-		for (int i = left1; i<8; i++)
-			screen[y*width/8 + pos1] = screen[y*width/8 + pos1] | (1 << (7 - i));
-
-		for (int i = 0; i<=left2; i++)
-			screen[y*width/8 + pos2] = screen[y*width/8 + pos2] | (1 << (7 - i));	
-
+			for (int i = 0; i<=left2; i++)
+				screen[y*width/8 + pos2] = screen[y*width/8 + pos2] | (1 << (7 - i));	
+		} else 
+			for (int i = left1; i<= left2; i++)
+				screen[y*width/8 + pos1] = screen[y*width/8 + pos1] | (1 << (7 - i));
 		return;
 	}		
 };

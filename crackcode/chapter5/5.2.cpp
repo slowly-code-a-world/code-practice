@@ -5,38 +5,46 @@
 */
 
 #include <iostream>
-#define DELTA	0.0000001
 
 class Solution {
 private:
 	vector<char> results;
 public:
 	void convert(double real) {
-		for (int i = 0; i < 32; i++) {
-			real = 2*real;
-			if (real >= 1.0) {
-				results.push_back(1);
-				real -= 1.0;	
-				if (real < DELTA)
-					break;
-			} else results.push_back(0);
-		}
-		if (real > DELTA) {
-			std::cout << "ERROR" << std::endl;
-			return;
+		while (real > 0) {
+			if (32 == results.size()) {
+				std::cout << "ERROR" << endl;
+				return;
+			}
+
+			real = 2 * real;
+			if (real >= 1) { 
+				results.push_back('1');
+				real -= 1;
+			} else result.push_back('0');
+						
 		}
 
-		std::cout << 0. ;
-		for (int i = results.size()-1; i >=1; i--) 
-			if ('0' != results[i]) 
-				break;
-		int size = results.size() - 1 - i;
-		for (int j = 0; j < size; j++)
-			results.pop_back();
-
+		std::cout << "0." ;
 		for (int i = 0; i < results.size(); i++)
 			std::cout << results[i];
-
+		
 		std::cout << std::endl;
-	}	
+	}
+
+	void convert_v2(double real) {
+		double fac = 0.5;
+
+		while (real > 0) {
+			if (results.size() == 32) {
+				std::cout << "ERROR" << std::endl;
+				break;
+			}
+
+			if (real >= fac) 
+				results.push_back(1);
+			else results.push_back(0);
+			fac = fac / 2;
+		}
+	}		
 };
