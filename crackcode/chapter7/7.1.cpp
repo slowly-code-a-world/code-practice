@@ -7,5 +7,5 @@ Game 2: You get three shots and you have to make two of three shots.
 If p is the probability of making a particular shot, for which values of p should
 you pick one game or the other?
 
-select game2 anyway
+if p < 0.5 select game1, p = 0, p = 0.5, p = 1, both the same, otherwise, select game2
 */
