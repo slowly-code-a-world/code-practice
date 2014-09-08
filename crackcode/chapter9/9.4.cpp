@@ -26,4 +26,30 @@ public:
 			}
 		}
 	}
+
+	vector<vector<int>> find_all_v2(vector<int> s) {
+		vector<vector<int> > ret;
+		if (0 == s.size()) return ret;
+		if (1 == s.size()) {
+			ret.push_back(s);
+			vector<int> tmp;
+			ret.push_back(tmp);
+			return ret;
+		}
+
+		int size = s.size();
+		int numbers = 1 << size;	
+		vector<int> tmp; int t;
+		for (int i = 0; i<numbers; i++) {
+			tmp.clear();
+			t = i;
+			for (int j = 0; j<size; j++) {
+				if (1 == t & 1) { 
+					tmp.push_back(s[j]);
+					t = t >> 1;
+				}
+			}
+			ret.push_back(tmp);
+		}
+	}
 };

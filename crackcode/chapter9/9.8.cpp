@@ -9,9 +9,10 @@ senting n cents.
 
 class Solution {
 public:
-	void get_all(vector<string> &ret, string &solution, int total) {
+	void get_all(set<string> &ret, string &solution, int total) {
 		if (0 == total) {
-			ret.push_back(solution);
+			solution.sort(solution.begin(), solution.end());
+			set.insert(solution);
 			return;
 		}
 
@@ -40,8 +41,8 @@ public:
 		}
 
 	}
-	vector<string> ways(int n) {
-		vector<string> ret;
+	set<string> ways(int n) {
+		set<string> ret;
 		string solution;
 		if (n <= 0) return ret;
 		get_all(ret, solution, n);
