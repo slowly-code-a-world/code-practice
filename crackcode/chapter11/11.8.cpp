@@ -34,5 +34,41 @@ public:
 			}
 		}
 		return -1;	
+	}
+
+	void track_v2(struct node* root, int x) {
+		if (NULL == root) {
+			root = new node(1, 0);
+			root->data = x;
+			return;
+		}
+
+		if (x == root->data) {
+			root->cnt++;
+			root->order++;
+			return;
+		}
+
+		if (x < root->data) {
+			root->order++;
+			if (NULL == root->left) {
+				root->left = new node(1, 0);
+				return;
+			}
+			track_v2(root->left, x);
+		}
+
+		if (NULL == root->right) {
+			root->right = new node(1, 0);
+			return;
+		}
+		track_v2(root->right, x);
+	}
+
+	int getRankOfNumber(struct node* root, int x) {
+		if (NULL == root) return -1;
+		if (x == root->data) return root->order;
+		if (x < root->data) return getRankOfNumber(root->left, x);
+		return root->order + getRankOfNumber(root->right);		
 	}	
 };

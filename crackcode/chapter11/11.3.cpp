@@ -15,16 +15,22 @@ public:
 		if (left > right) return -1;
 		if (left == right) return (rotated[left] == num)? left : -1;
 		int mid = (left + right)/2;
-		if (A[mid] == num) return mid;
-		if (A[mid] > num) {
-			if (A[mid] > A[0]) {
+		if (rotated[mid] == num) return mid;
+		if (rotated[mid] > num) {
+			if (rotated[mid] > rotated[left]) {
 				int tmp = real_search(rotated, num, left, mid - 1);
 				if (-1 == tmp) 
 					return real_search(rotated, num, mid+1, right);
-			} else return real_search(rotated, num, mid+1, right);
+			} else if (rotated[mid] < rotated[left])	
+				return real_search(rotated, num, mid+1, right);
+			else {
+				int tmp = real_search(rotated, num, left, mid - 1);	
+				if (-1 == tmp) 
+					return real_search(rotated, num, mid + 1, right);
+			}
 		}
 	
-		if (A[mid] > A[0]) 
+		if (rotated[mid] > rotated[left]) 
 			return real_search(rotated, num, mid+1, right);
 		int tmp = real_search(rotated, num, left, mid-1);
 		if (-1 == tmp) return real_search(rotated, num, mid+1, right);	

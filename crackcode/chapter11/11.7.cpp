@@ -33,7 +33,7 @@ public:
 	}
 	int get_longest(vector<person>& group) {
 		if (0 == group.size()) return 0;
-		if (1 == group.size()) return group[0].height;
+		if (1 == group.size()) return 1;
 		unordered_map<person, int> map;
 		int max = 0;
 		for (int i = 0; i<group.size(); i++) {
@@ -42,5 +42,27 @@ public:
 		}
 
 		return max;
+	}
+
+	int get_longest_v2(vector<person>& group) {
+		if (0 == group.size()) return 0;
+		if (1 == group.size()) return 1;
+		sort(group.begin(), group.end(), compare);
+		vector<int> table(group.size(), 1);
+		for (int i = 1; i < group.size(); i++) {
+			for (int j = 0; j<i; j++) {
+				if (group[i].height > group[j].height)
+					table[i] = max(table[i], table[j] + 1);
+			}
+		}
+		int max = 1;
+		for (int i = 0; i< table.size(); i++) 
+			if (table[i] > max) max = table[i];
+
+		return max;	
 	}	
 };
+
+bool compare(person p1, person p2) {
+	return p1.weight < p2.weight;	
+}	

@@ -47,7 +47,50 @@ public:
 		int rows = matrix.size();
 		if (0 == rows) return res;
 		int columns = matrix[0].size(); 
+		if (0 == columns) return res;
 		res = get(matrix, element, 0, 0, rows-1, columns - 1);
 		return res;	
+	}
+
+	pair<int, int> find_v2(vector<vector<int> > &matrix, int element) {
+		pair<int, int> res = make_pair(-1, -1);
+		int rows = matrix.size();
+		if (0 == rows) return res;
+		int columns = matrix[0].size();
+		if (0 == columns) return res;
+		int startx = 0; int starty = columns - 1;
+		while (startx < rows && starty >=0) {
+			if (element == matrix[startx][starty]) return make_pair(startx, starty);
+			if (matrix[startx][starty] > element) starty--;
+			else startx++;
+		}
+
+		return res;
+	}
+
+	pair<int, int> real_find(vector<vector<int> > &matrix, int element, int sx, int sy, int ex, int ey) {
+		pair<int, int> res = make_pair(-1, -1);
+		if (sx > ex || sy > ey)	return res;
+		if (sx == ex && sy == ey) return (matrix[sx][sy] == element)? make_pair(sx, sy) : res;
+		int cnt = 0;
+		while (sx + cnt <= ex && sy + cnt <= ey && matrix[sx + cnt][sy + cnt] < element) 
+			cnt++;
+		if (sx + cnt > ex) 
+			return real_find(matrix, element, sx, sy + cnt, sx + cnt, ey);
+		if (sy + cnt > ey)
+			return real_find(matrix, element, sx + cnt, sy, ex, ey);
+		if (matrix[sx + cnt][sy + cnt] == element) return make_pair(sx + cnt, sy + cnt);
+		pair<int, int> tmp = real_find(matrix, element, sx, sy + cnt, sx + cnt, ey);
+		if (-1 == tmp.first)
+		return real_find(matrix, element, sx + cnt, sy, ex, sy + cnt);
+	}
+
+	pair<int, int> find_v3(vector<vector<int> > &matrix, int element) {
+		pair<int, int> res = make_pair(-1, -1);
+		int rows = matrix.size();
+		if (0 == rows) return res;
+		int columns = matrix[0].size();
+		if (0 == columns) return res;
+		return real_find(matrix, element, 0, 0, rows-1, columns-1);
 	}
 };
