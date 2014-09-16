@@ -6,10 +6,17 @@ contains two pointers to other Nodes.
 
 class Solution {
 public:
-	struct node* copy(struct node* param) {
-		struct node* tmp = new node(param->data);
-		tmp->left = new node(param->left->data);
-		tmp->right = new node(param->right->data);
-		return tmp;
+	struct node* copy_recursive(struct node* root, unordered_map<struct node*, struct node*>&map) {
+		if (NULL == root) return NULL;
+		if (map.find(root) != map.end()) return map[root];
+		struct node* tmp = new node;
+		map[root] = tmp;
+		copy_recursive(root->ptr1, map);
+		copy_recursive(root->ptr2, map);
+	}
+
+	Node* copy_structure(struct node* root) {
+		unordered_map<struct node*, struct node*> map;
+		return copy_recursive(root, map);
 	}
 };

@@ -7,13 +7,50 @@ count hits zero.
 */
 
 template <class T>
-class SmartPointer<T*> {
+class SmartPointer {
 private:
-	int count;
+	T *obj;
+	unsigned *ref_count;
+	void remove() {
+		--(*ref_count);
+		if (*ref_count == 0) {
+			delete obj;
+			free(ref_count);
+			obj = NULL;
+			ref_count = NULL;
+		}
+	}
 public:
-	SmartPointer<T*>() {
-		count = 0;
+	SmartPointer(T *ptr) {
+		obj = ptr;
+		ref_count = (unsigned*) malloc(sizeof(unsigned));
+		*ref_count = 1;
+	}
+
+	SmartPointer(SmartPointer<T>& sptr) {
+		obj = sptr.obj;
+		ref_count = sptr.ref_count;
+		++(*ref_count);
+	}
+
+	SmartPointer<T> &operator=(SmartPointer<T> &sptr) {
+		if (this == &sptr) return *this;
+		if (*ref_count > 0) remove();
+		obj = sptr.obj;
+		ref_count = sptr.ref_count;
+		++(*ref_count);
+		return *this;
+	}
+
+	~SmartPointer() {
+		remove();
 	}
 
 	
 };
+
+int main(void) {
+	int a = 5;
+	SmartPointer<int> p (&a);
+}
+
