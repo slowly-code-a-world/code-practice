@@ -10,27 +10,37 @@ before third.
 #include <thread>
 #include <mutex>
 
-mutex mtx;
-volatile int start = 0;
+using namespace std;
 
 class Foo {
 public:
-	Foo() {}
+	mutex *mtx1, *mtx2, *mtx3;
+	Foo():mtx1(NULL), mtx2(NULL), mtx3(NULL) {
+		mtx1 = new mutex();
+		mtx2 = new mutex();
+		mtx3 = new mutex();
+		(*mtx1).lock();
+		(*mtx2).lock();
+		(*mtx3).lock();	
+	}
 	void first() { cout << "first" << endl; }
 	void second() { cout << "second" << endl; }
 	void third() { cout << "third" << endl; }
-} 
+
+}; 
 
 int func(Foo f, int id) {
 	if (0 == id) {
 		f.first();
-		start = 1;
+		f.mtx1->unlock();
 	} else if (1 == id) {
-		while (1 != start);
+		f.mtx1->lock();
+		f.mtx1->unlock();
 		f.second();
-		start = 2;
+		f.mtx2->unlock();
 	} else {
-		while(2 != start);
+		f.mtx2->lock();
+		f.mtx2->unlock();
 		f.third();
 	}
 }
