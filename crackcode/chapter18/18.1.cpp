@@ -29,3 +29,10 @@ int sum(int a, int b) {
 	}
 	return ret;
 }
+
+int sum_v2(int a, int b) {
+	if (0 == b) return a;
+	int sum = a ^ b;
+	int carry = (a & b) << 1;
+	return sum_v2(sum, carry);
+}

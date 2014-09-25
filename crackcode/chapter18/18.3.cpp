@@ -12,3 +12,18 @@ vector<int> get(int m, vector<int> &array) {
 
 	return ret;
 }
+
+vector<int> get_v2(int m, vector<int> &array) {
+	vector<int> ret;
+	if (m > array.size()) return ret;
+	if (m == array.size()) return array;
+	for (int i = 0; i<m; i++)
+		ret.push_back(array[i]);
+	for (int i = m; i<array.size(); i++) {
+		int loc = rand() % i;
+		if (loc < m) 
+			ret[loc] = array[i];
+	}	 
+
+	return ret;
+}

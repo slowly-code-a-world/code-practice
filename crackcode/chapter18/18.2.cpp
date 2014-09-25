@@ -14,3 +14,24 @@ vector<int> shuffle(vector<int> cards) {
 
 	return tmp;
 }
+
+vector<int> shuffle_v2(vector<int> &cards, int i) {
+	if (0 == i) return cards;
+	shuffle_v2(cards, i - 1);
+	int loc = rand_generator() % i;
+	
+	int tmp = cards[i];
+	cards[i] = cards[loc];
+	cards[loc] = tmp;
+
+	return cards;	
+}
+
+void shuffle_v3(vector<int> &cards) {
+	for (int i = 1; i < cards.size(); i++) {
+		int loc = rand_generator() % i;
+		int tmp = cards[i];
+		cards[i] = cards[loc];
+		cards[loc] = tmp;
+	}
+}
