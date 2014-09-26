@@ -4,4 +4,4 @@ find and maintain the median value as new values are generated.
 */
 
 // vector to sort each time
-// bst tree to count
+// min max heap
