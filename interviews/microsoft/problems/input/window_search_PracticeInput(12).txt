@@ -1,0 +1,3 @@
+Example
+
+When you are writing examples you have to be very careful that the example you are about to write shows something unique that other examples don’t cover, but still doesn’t reveal a solution.

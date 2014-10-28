@@ -98,42 +98,24 @@ int main(int argc, char* argv[]) {
 	memset(buffer, 0 , 25);	
 	if (file.is_open()) {
 		while (getline(file, line)) {
-			//cout << line << endl;
-			//cout << endl;
 			cnt ++;
+			int startPos = 0;
 			for (int i = 0; i<line.size(); i++) {
 				if (line[i] == ',') {
-					number = atoi(buffer);
-					index = 0;			
-					if (cnt == 0) inorder.push_back(number);
-					else postorder.push_back(number);
-					memset(buffer, 0, 25);					
-				} else {
-					buffer[index] = line[i];
-					index++;
-				}
-				if (i == line.size() - 1) {
-					number = atoi(buffer);
-					memset(buffer, 0, 25);
-					index = 0;
-					if (0 == cnt) inorder.push_back(number);
-					else postorder.push_back(number);
+					string tmp = line.substr(startPos, i - startPos);
+					if (cnt == 0) inorder.push_back(atoi(tmp.c_str()));
+					else postorder.push_back(atoi(tmp.c_str()));
+					startPos = i + 1;
 				}
 			}
+			string tmp = line.substr(startPos, line.size()- startPos);
+			if (cnt == 0) inorder.push_back(atoi(tmp.c_str()));
+			else postorder.push_back(atoi(tmp.c_str()));
 		}
 		file.close();
 	}
 	
 	Solution S;
 	S.convert(inorder, postorder);
-	/*
-	for (int i = 0; i<inorder.size(); i++)
-		cout << inorder[i] << " ";
-	cout << endl;
-
-	for (int i = 0; i<postorder.size(); i++) 
-		cout << postorder[i] << " ";
-	cout << endl;		
-	*/
 	return 0;
 }

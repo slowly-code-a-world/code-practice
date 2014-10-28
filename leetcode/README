@@ -7,3 +7,9 @@ word break
 ---dp 
 Flatten Binary Tree to Linked List
 ---more efficient, look at crackcode
+next permutation
+---can you without call system lib?
+Recover Binary Search Tree
+---need O(1) space implementation
+word ladder
+---memory limit exceed, find why
