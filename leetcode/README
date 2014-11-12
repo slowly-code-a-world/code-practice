@@ -13,3 +13,8 @@ Recover Binary Search Tree
 ---need O(1) space implementation
 word ladder
 ---memory limit exceed, find why
+Largest Rectangle in Histogram
+---O(n) algorithm
+Permutation Sequence
+mathmatical method
+sqrt(x), understand newton's iteration
