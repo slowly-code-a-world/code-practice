@@ -52,3 +52,61 @@ STOPPED: 3 4
 TIME: 13
 PATH: 0 1 4 3
 */
+#include <iostream>
+#include <vector>
+#include <tr1/unordered_map>
+using namespace std;
+using namespace std::tr1;
+
+struct node {
+	int start, end, id;
+};
+
+class Interview {
+public:
+	void goToInterview(unordered_map<int, vector<pair<int, int>>>&map, unordered_map<int, bool>&mark) {	
+		if (map.size() == 0) {
+			cout << "Invalid" << endl;
+			return;
+		}
+		vector<struct node> queue;
+		struct node n;
+		if (map[0].size() == 0) {
+			cout << "Invalid" << endl;
+			return;
+		}
+		n.start = 0; n.end = map[0].second; n.id = map[0].first;
+		queue.push_back(n);
+		mark[0] = true;
+		while (queue.empty() == false) {
+			int size = queue.size();
+			for (int i = 0; i<size; i++) {
+				struct node tmp = queue[0];
+				if (mark[tmp.end] == false) {
+					struct node n;
+					n.start = tmp.end;
+					for (int j =0; j<map[n.start].size(); j++) {
+						n.end = map[n.start][j].second;
+						n.id = map[n.start][j].first;
+						
+					}	
+				}		
+			}
+		}
+	}
+};
+
+int main(void) {
+	int target, stairCost, speed, num;
+	cin >> target >> stairCost >> speed >> num;
+	unordered_map<int, vector<pair<int, int>>> map;
+	unordered_map<int, bool> mark;	
+	for (int i = 0; i<num; i++) {
+		int id, start, end;
+		cin >> id >> start >> end;
+		pair<int, int> tmp = make_pair(id, end);
+		map[start].push_back(tmp);
+	}
+	Interview inter;
+	inter.goToInterview(map, mark);
+}
