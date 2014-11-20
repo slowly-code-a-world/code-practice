@@ -57,42 +57,54 @@ PATH: 0 1 4 3
 #include <tr1/unordered_map>
 using namespace std;
 using namespace std::tr1;
-
 struct node {
-	int start, end, id;
+	int start, end, id, prev;
 };
-
 class Interview {
 public:
-	void goToInterview(unordered_map<int, vector<pair<int, int>>>&map, unordered_map<int, bool>&mark) {	
+	void goToInterview(unordered_map<int, vector<pair<int, int>>>&map, unordered_map<int, bool>&mark, int target, vector<struct node>& nodes) {	
 		if (map.size() == 0) {
 			cout << "Invalid" << endl;
 			return;
 		}
 		vector<struct node> queue;
-		struct node n;
 		if (map[0].size() == 0) {
 			cout << "Invalid" << endl;
 			return;
 		}
-		n.start = 0; n.end = map[0].second; n.id = map[0].first;
-		queue.push_back(n);
-		mark[0] = true;
+		queue.push_back(nodes[0]);
+		mark[0] = true; 
+		bool found = false;
+		int id = -1;
+		int minDis = INT_MAX;
 		while (queue.empty() == false) {
 			int size = queue.size();
 			for (int i = 0; i<size; i++) {
 				struct node tmp = queue[0];
 				if (mark[tmp.end] == false) {
-					struct node n;
-					n.start = tmp.end;
-					for (int j =0; j<map[n.start].size(); j++) {
-						n.end = map[n.start][j].second;
-						n.id = map[n.start][j].first;
-						
-					}	
-				}		
+					struct node n1;
+					n1.start = tmp.end;
+					for (int j =0; j<map[n1.start].size(); j++) {
+						n1.end = map[n1.start][j].first;
+						n1.id = map[n1.start][j].second;
+						n1.prev = tmp.id;
+						nodes[n1.id].prev = n1.prev;
+						if (n1.end == target) {
+							found = true;
+							id = n1.id;
+						}
+						queue.push_back(n1);
+					}
+					mark[tmp.end] == true;
+				}
+				queue.erase(queue.begin());		
 			}
 		}
+		if (!found) {
+			cout << "Invalid" << endl;
+			return;
+		}
+			
 	}
 };
 
@@ -100,13 +112,20 @@ int main(void) {
 	int target, stairCost, speed, num;
 	cin >> target >> stairCost >> speed >> num;
 	unordered_map<int, vector<pair<int, int>>> map;
-	unordered_map<int, bool> mark;	
+	unordered_map<int, bool> mark;
+	vector<struct node> nodes;	
 	for (int i = 0; i<num; i++) {
 		int id, start, end;
 		cin >> id >> start >> end;
-		pair<int, int> tmp = make_pair(id, end);
+		pair<int, int> tmp = make_pair(end, id);
 		map[start].push_back(tmp);
+		struct node n;
+		n.start = start;
+		n.end = end; 
+		n.id = id;
+		n.prev = -1;
+		nodes.push_back(n);
 	}
 	Interview inter;
-	inter.goToInterview(map, mark);
+	inter.goToInterview(map, mark, target, nodes);
 }
