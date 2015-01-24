@@ -19,12 +19,8 @@ public:
 		for (int i = 0; i<array.size(); i++) {
 			if (array[i] == start) 
 				start++;
-			if (array[i] - start == 1) {
-				ret.push_back(make_pair(start, start));
-				start = array[i] + 1;
-				if (start > 99) break;
-			} else {
-				ret.push_back(make_pair(start, array[i]-1))
+			else {
+				ret.push_back(make_pair(start, array[i]-1));
 				start = array[i] + 1;
 				if (start > 99) break;
 			}
@@ -34,3 +30,12 @@ public:
 		return ret;
 	}
 };
+int main(void) {
+	Solution S;
+	vector<int> tmp = {0, 1, 3, 50, 75};
+	vector<pair<int, int>> ret;
+	ret = S.missRange(tmp);
+	for (int i = 0; i<ret.size(); i++) {
+		cout << ret[i].first << " " << ret[i].second << endl;
+	}
+}
