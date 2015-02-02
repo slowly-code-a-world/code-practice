@@ -9,19 +9,23 @@ public:
                 if (array.size() == 1) return array[0];
 		vector<int> ret(array.size(), 1); 
 		int fac = 1;
-                for (int i = 1; i<array.size(); i++) {
-			fac *= array[i-1];
-			ret[i] *= fac;	
+                for (int i = 0; i<array.size()-1; i++) {
+			fac *= array[i];
+			ret[i+1] = fac;	
 		}
 		fac = 1;
-		for (int i = array.size()-2; i>=0; i--) {
-			fac *= array[i+1];
-			ret[i] *= fac;
+		int retVal = ret[ret.size()-1];
+		for (int i = array.size()-1; i>=1; i--) {
+			fac *= array[i];
+			ret[i-1] *= fac;
+			retVal = max(retVal, ret[i-1]);
 		}
-		int retVal = INT_MIN;
-		for (int i = 0; i<ret.size(); i++)
-			retVal = max(ret, ret[i]);
 		return retVal;
         }
 };
 
+int main(void) {
+	Solution S;
+	vector<int> test = {-1,-2,3};
+	cout << S.getMaxMultiply(test) << endl;
+}
