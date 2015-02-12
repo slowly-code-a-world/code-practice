@@ -47,7 +47,7 @@ public:
 			return ret;
 		}
 		if (size1 > size2) {
-			for (int i = size1 - size2; i>=0; i--) {
+			for (int i = size1 - size2 -1; i>=0; i--) {
 				int val = str1[i] - '0' + carry;
 				if (val <= 9) {
 					carry = 0;
@@ -61,7 +61,7 @@ public:
 			ret.insert(ret.begin(), '1');
 			return ret;
 		}
-		for (int i = size2 - size1; i>=0; i--) {
+		for (int i = size2 - size1 - 1; i>=0; i--) {
 			int val = str2[i] - '0' + carry;
 			if (val <= 9) {
 				carry = 0;
