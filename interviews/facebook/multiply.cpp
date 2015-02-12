@@ -19,7 +19,7 @@ public:
 			int sum = carry + val*factor;
 			carry = sum / 10;
 			ret.insert(ret.begin(), sum % 10 + '0');
-		}
+		
 		if (carry == 0) return ret;
 		ret.insert(ret.begin(), carry + '0');
 		return ret;
@@ -86,9 +86,7 @@ public:
 		for (int i = 0; i<str1.size(); i++) {
 			string tmpRes = multiplyOneDigit(str1[str1.size()-1-i], str2);
 			shift(tmpRes, i);
-			cout << tmpRes << endl;
 			res = addString(tmpRes, res);
-			cout << "adding " << res << endl;
 		}
 		return res;
 	}
